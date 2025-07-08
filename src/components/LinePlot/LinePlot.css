@@ -1,0 +1,20 @@
+.axis {
+  color: #ccd6eb;
+  & text {
+    color: #666;
+  }
+  & .domain {
+    display: none;
+  }
+}
+
+.xAxis {
+  & line {
+    display: none;
+  }
+}
+
+svg {
+  display: flex;
+  justify-self: center;
+}
