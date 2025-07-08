@@ -10,9 +10,13 @@ const Editor = () => {
     setWidgets((prev) => [...prev, type]);
   };
 
+  const handleRemove = (indexToRemove) => {
+    setWidgets((prev) => prev.filter((_, i) => i !== indexToRemove));
+  };
+
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
-      <DropZone widgets={widgets} onDrop={handleDrop} />
+      <DropZone widgets={widgets} onDrop={handleDrop} onRemove={handleRemove} />
       <Sidebar />
     </Box>
   );

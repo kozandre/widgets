@@ -1,10 +1,11 @@
 import { useDrop } from 'react-dnd';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, IconButton } from '@mui/material';
 import WidgetRenderer from '../WidgetRenderer/WidgetRenderer.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ItemTypes = { WIDGET: 'widget' };
 
-const DropZone = ({ widgets, onDrop }) => {
+const DropZone = ({ widgets, onDrop, onRemove }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => onDrop(item.type),
@@ -19,7 +20,7 @@ const DropZone = ({ widgets, onDrop }) => {
         flex: 1,
         minHeight: '80vh',
         p: 2,
-        border: '2px dashed #ccc',
+        border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',
         borderRadius: 2,
         position: 'relative',
       }}
@@ -42,12 +43,26 @@ const DropZone = ({ widgets, onDrop }) => {
         </Typography>
       )}
 
-      {!isEmpty &&
-        widgets.map((widget, index) => (
-          <Paper key={index} sx={{ p: 2, mb: 2 }}>
-            <WidgetRenderer type={widget} />
-          </Paper>
-        ))}
+      {widgets.map((widget, index) => (
+        <Paper
+          key={index}
+          sx={{
+            p: 2,
+            mb: 2,
+            position: 'relative',
+          }}
+        >
+          <IconButton
+            size="small"
+            onClick={() => onRemove(index)}
+            sx={{ position: 'absolute', top: 8, right: 8 }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+
+          <WidgetRenderer type={widget} />
+        </Paper>
+      ))}
     </Box>
   );
 };
