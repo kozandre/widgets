@@ -1,5 +1,8 @@
 # test-admin
 
+## View Deploy:
+[Deploy](https://kozandre.github.io/widgets/widgets/)
+
 ## Installation
 
 Install the application dependencies by running:
