@@ -11,4 +11,12 @@ export default defineConfig(({mode}) => ({
     sourcemap: mode === "development",
   },
   base: "./",
+  resolve: {
+    alias: {
+      src: "/src",
+      components: "/src/components",
+      data: "/src/data",
+      pages: "/src/pages",
+    },
+  },
 }));
