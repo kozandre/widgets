@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import './LinePlot.css';
 import {useState} from "react";
 
-const LinePlotCustom =
+export const LinePlotCustom =
   ({
      data,
      width = 620,
@@ -110,5 +110,3 @@ const LinePlotCustom =
       </svg>
     );
   };
-
-export default LinePlotCustom;

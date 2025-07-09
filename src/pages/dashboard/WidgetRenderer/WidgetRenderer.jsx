@@ -1,7 +1,8 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import LinePlot from '../../../components/LinePlot/LinePlot';
-import BarChart from '../../../components/BarChart/BarChart';
+import {LinePlotCustom} from 'components/LinePlotCustom';
+import {BarChartCustom} from 'components/BarChartCustom';
+import {BarChart} from 'components/BarChart';
 
 const diagramData = [
   { name: 'Jan', value: 40 },
@@ -11,15 +12,15 @@ const diagramData = [
   { name: 'May', value: 15 },
 ];
 
-const WidgetRenderer = ({ type }) => {
+export const WidgetRenderer = ({ type }) => {
   switch (type) {
-    case 'LinePlot':
-      return <LinePlot data={diagramData} />;
     case 'BarChart':
       return <BarChart />;
+    case 'LinePlotCustom':
+      return <LinePlotCustom data={diagramData} />;
+    case 'BarChartCustom':
+      return <BarChartCustom />;
     default:
       return <Typography>Unknown Widget</Typography>;
   }
 };
-
-export default WidgetRenderer;

@@ -11,7 +11,7 @@ const height = 380;
 const margin = { top: 20, right: 30, bottom: 65, left: 200 };
 const xAxisLabelOffset = 50;
 
-const BarChartCustom = () => {
+export const BarChartCustom = () => {
   const data = useData();
 
   if (!data) {
@@ -65,5 +65,3 @@ const BarChartCustom = () => {
     </svg>
   );
 };
-
-export default BarChartCustom;

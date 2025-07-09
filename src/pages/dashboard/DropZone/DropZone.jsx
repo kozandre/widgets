@@ -1,11 +1,11 @@
-import { useDrop } from 'react-dnd';
-import { Box, Paper, Typography, IconButton } from '@mui/material';
-import WidgetRenderer from '../WidgetRenderer/WidgetRenderer.jsx';
+import {useDrop} from 'react-dnd';
+import {Box, Paper, Typography, IconButton} from '@mui/material';
+import {WidgetRenderer} from '../WidgetRenderer';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const ItemTypes = { WIDGET: 'widget' };
+const ItemTypes = {WIDGET: 'widget'};
 
-const DropZone = ({ widgets, onDrop, onRemove }) => {
+export const DropZone = ({widgets, onDrop, onRemove}) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => onDrop(item.type),
@@ -55,7 +55,7 @@ const DropZone = ({ widgets, onDrop, onRemove }) => {
           <IconButton
             size="small"
             onClick={() => onRemove(index)}
-            sx={{ position: 'absolute', top: 8, right: 8 }}
+            sx={{position: 'absolute', top: 8, right: 8}}
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
@@ -66,5 +66,3 @@ const DropZone = ({ widgets, onDrop, onRemove }) => {
     </Box>
   );
 };
-
-export default DropZone;

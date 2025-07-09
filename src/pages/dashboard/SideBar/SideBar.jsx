@@ -1,14 +1,13 @@
 import { Box, Typography } from '@mui/material';
-import DraggableWidget from '../DraggableWidget/DraggableWidget.jsx';
+import {DraggableWidget} from '../DraggableWidget';
 
-const Sidebar = () => (
+export const Sidebar = () => (
   <Box sx={{ width: 200 }}>
     <Typography variant="h6" gutterBottom>
       Available Widgets
     </Typography>
-    <DraggableWidget type="LinePlot" label="Line Plot" />
     <DraggableWidget type="BarChart" label="Bar Chart" />
+    <DraggableWidget type="LinePlotCustom" label="Line Plot Custom" />
+    <DraggableWidget type="BarChartCustom" label="Bar Chart Custom" />
   </Box>
 );
-
-export default Sidebar;

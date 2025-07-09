@@ -1,9 +1,9 @@
-import { Box } from '@mui/material';
-import DropZone from '../DropZone/DropZone.jsx';
-import Sidebar from '../SideBar/SideBar.jsx';
-import { useState } from 'react';
+import {Box} from '@mui/material';
+import {DropZone} from '../DropZone';
+import {Sidebar} from '../SideBar';
+import {useState} from 'react';
 
-const Editor = () => {
+export const Editor = () => {
   const [widgets, setWidgets] = useState([]);
 
   const handleDrop = (type) => {
@@ -15,11 +15,13 @@ const Editor = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
-      <DropZone widgets={widgets} onDrop={handleDrop} onRemove={handleRemove} />
+    <Box sx={{display: 'flex', gap: 2}}>
+      <DropZone
+        widgets={widgets}
+        onDrop={handleDrop}
+        onRemove={handleRemove}
+      />
       <Sidebar />
     </Box>
   );
 };
-
-export default Editor;
