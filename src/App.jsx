@@ -1,15 +1,15 @@
-import {Admin, Resource} from "react-admin";
-import {Layout} from "./Layout.jsx";
-import {dataProvider} from "./dataProvider.js";
-import PostList from "./pages/posts/PostList/PostList.jsx";
-import PostEdit from "./pages/posts/PostEdit/PostEdit.jsx";
-import PostShow from "./pages/posts/PostShow/PostShow.jsx";
-import UserList from "./pages/users/UserList/UserList.jsx";
-import UserShow from "./pages/users/UserShow/UserShow.jsx";
-import PostCreate from "./pages/posts/PostCreate/PostCreate.jsx";
+import { Admin, Resource } from "react-admin";
+import { Layout } from "./Layout";
+import { dataProvider } from "./dataProvider";
+import { PostList } from "./pages/posts/PostList";
+import { PostEdit } from "./pages/posts/PostEdit";
+import { PostShow } from "./pages/posts/PostShow";
+import UserList from "./pages/users/UserList/UserList";
+import UserShow from "./pages/users/UserShow/UserShow";
+import { PostCreate } from "./pages/posts/PostCreate";
 import ArticleIcon from '@mui/icons-material/Article';
 import PersonIcon from '@mui/icons-material/Person';
-import HomePage from "./pages/home/HomePage/HomePage.jsx";
+import HomePage from "./pages/home/HomePage/HomePage";
 
 export const App = () => (
   <Admin

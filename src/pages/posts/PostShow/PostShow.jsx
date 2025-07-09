@@ -1,6 +1,6 @@
 import {ReferenceField, Show, SimpleShowLayout, TextField} from 'react-admin';
 
-const PostShow = () => (
+export const PostShow = () => (
   <Show>
     <SimpleShowLayout>
       <ReferenceField
@@ -13,5 +13,3 @@ const PostShow = () => (
     </SimpleShowLayout>
   </Show>
 );
-
-export default PostShow;
