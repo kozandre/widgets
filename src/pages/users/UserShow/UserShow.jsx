@@ -1,4 +1,4 @@
-import {Show, SimpleShowLayout, TextField} from 'react-admin';
+import { Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const UserShow = () => (
   <Show>
@@ -10,5 +10,3 @@ export const UserShow = () => (
     </SimpleShowLayout>
   </Show>
 );
-
-export default UserShow;
