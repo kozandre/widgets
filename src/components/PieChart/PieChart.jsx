@@ -24,7 +24,7 @@ export const PieChart = ({ width = 620, height = 300 }) => {
           anchor: 'bottom',
           direction: 'row',
           translateY: 56,
-          itemWidth: 100,
+          itemWidth: 70,
           itemHeight: 18,
           symbolShape: 'circle'
         }
