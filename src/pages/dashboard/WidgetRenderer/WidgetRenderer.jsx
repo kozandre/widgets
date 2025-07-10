@@ -15,17 +15,17 @@ const diagramData = [
   { name: 'May', value: 15 },
 ];
 
-export const WidgetRenderer = ({ type }) => {
+export const WidgetRenderer = ({ type, config }) => {
 
   switch (type) {
     case 'GaugeChart':
-      return <GaugeChart />;
+      return <GaugeChart config={config} />;
     case 'LineChart':
-      return <LineChart />;
+      return <LineChart config={config} />;
     case 'PieChart':
-      return <PieChart />;
+      return <PieChart config={config} />;
     case 'BarChart':
-      return <BarChart />;
+      return <BarChart config={config} />;
     case 'LinePlotCustom':
       return <LinePlotCustom data={diagramData} />;
     case 'BarChartCustom':

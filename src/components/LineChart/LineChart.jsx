@@ -18,6 +18,7 @@ export const LineChart = ({width = 620, height = 300}) => {
       pointLabelYOffset={-12}
       enableTouchCrosshair={true}
       useMesh={true}
+      enableArea={true}
       legends={[
         {
           anchor: 'bottom-right',

@@ -9,7 +9,7 @@ export const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => {
-      onDrop(zoneId, item.type);
+      onDrop(zoneId, item);
     }
   }));
 
@@ -58,7 +58,7 @@ export const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
             <DeleteIcon fontSize="small" />
           </IconButton>
 
-          <WidgetRenderer type={widget} />
+          <WidgetRenderer type={widget.type} config={widget.config}/>
         </Paper>
       ))}
     </Box>

@@ -21,7 +21,6 @@
     "@nivo/line": "^0.99.0",
     "@nivo/pie": "^0.99.0",
     "@nivo/radial-bar": "^0.99.0",
-    "@nivo/scatterplot": "^0.99.0",
     "d3": "^7.9.0",
     "formik": "^2.4.6",
     "ra-data-json-server": "^5.9.0",

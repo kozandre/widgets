@@ -1,7 +1,14 @@
-import {Bar} from "@nivo/bar";
-import {mockBarData} from 'src/data/mockBarData';
+import { Bar } from "@nivo/bar";
+import { mockBarData } from 'src/data/mockBarData';
 
-export const BarChart = ({width = 620, height = 300}) => {
+export const BarChart = ({config}) => {
+  const {
+    width = 620,
+    height = 300,
+    groupMode = "grouped",
+    layout = "vertical"
+  } = config;
+
   return (
     <Bar
       data={mockBarData}
@@ -9,16 +16,17 @@ export const BarChart = ({width = 620, height = 300}) => {
       height={height}
       indexBy="country"
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
-      groupMode="grouped"
+      groupMode={groupMode}
+      layout={layout}
       padding={0}
       innerPadding={1}
       enableLabel={false}
       labelOffset={2}
       labelSkipWidth={11}
       labelSkipHeight={10}
-      colors={{scheme: 'dark2'}}
+      colors={{ scheme: 'dark2' }}
       borderRadius={6}
-      borderColor={{from: 'color', modifiers: []}}
+      borderColor={{ from: 'color', modifiers: [] }}
       legends={[
         {
           dataFrom: 'keys',
@@ -31,10 +39,10 @@ export const BarChart = ({width = 620, height = 300}) => {
         }
       ]}
       totalsOffset={9}
-      axisBottom={{legend: 'country (indexBy)'}}
-      axisLeft={{legend: 'food'}}
+      axisBottom={{ legend: 'country (indexBy)' }}
+      axisLeft={{ legend: 'food' }}
       isFocusable={true}
-      margin={{top: 50, right: 130, bottom: 50, left: 60}}
+      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     />
-  )
-}
+  );
+};
