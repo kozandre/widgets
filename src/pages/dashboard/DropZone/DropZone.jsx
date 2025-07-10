@@ -18,10 +18,7 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
       ref={drop}
       sx={{
         p: 2,
-        height: '85%',
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: "center",
+        height: '100%',
         border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',
         borderRadius: 2,
         position: 'relative',
@@ -34,6 +31,7 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
           sx={{
             pointerEvents: 'none',
             opacity: 0.6,
+            textAlign: 'center'
           }}
         >
           Drag and drop widgets here

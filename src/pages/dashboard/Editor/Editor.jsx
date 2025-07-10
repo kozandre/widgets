@@ -62,7 +62,7 @@ export const Editor = () => {
         <Paper
           key="1"
           elevation={3}
-          sx={{p: 2}}
+          sx={{ p: 2 }}
         >
           <Typography variant="h6">Widget 1</Typography>
           <Typography>Table</Typography>
@@ -75,7 +75,7 @@ export const Editor = () => {
         <Paper
           key="2"
           elevation={2}
-          sx={{p: 2}}
+          sx={{ p: 2 }}
         >
           <Typography variant="h6">Widget 2</Typography>
           <Typography>Diagramm</Typography>
@@ -88,7 +88,7 @@ export const Editor = () => {
         <Paper
           key="3"
           elevation={3}
-          sx={{p: 2}}
+          sx={{ p: 2 }}
         >
           <Typography variant="h6">Widget 3</Typography>
           <Typography>Graphic</Typography>
