@@ -9,14 +9,26 @@ import 'react-resizable/css/styles.css';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export const Editor = () => {
-  const [widgets, setWidgets] = useState([]);
 
-  const handleDrop = (type) => {
-    setWidgets((prev) => [...prev, type]);
+  const [widgetsByZone, setWidgetsByZone] = useState({
+    1: [],
+    2: [],
+    3: []
+  });
+
+  const handleDrop = (zoneId, type) => {
+    setWidgetsByZone((prev) => ({
+      ...prev,
+      [zoneId]: [...prev[zoneId], type]
+    }));
   };
 
-  const handleRemove = (indexToRemove) => {
-    setWidgets((prev) => prev.filter((_, i) => i !== indexToRemove));
+
+  const handleRemove = (zoneId, indexToRemove) => {
+    setWidgetsByZone((prev) => ({
+      ...prev,
+      [zoneId]: prev[zoneId].filter((_, i) => i !== indexToRemove)
+    }));
   };
 
   const layout = [
@@ -68,7 +80,8 @@ export const Editor = () => {
           <Typography variant="h6">Widget 1</Typography>
           <Typography>Table</Typography>
           <DropZone
-            widgets={widgets}
+            zoneId="1"
+            widgets={widgetsByZone[1]}
             onDrop={handleDrop}
             onRemove={handleRemove}
           />
@@ -81,7 +94,8 @@ export const Editor = () => {
           <Typography variant="h6">Widget 2</Typography>
           <Typography>Diagramm</Typography>
           <DropZone
-            widgets={widgets}
+            zoneId="2"
+            widgets={widgetsByZone[2]}
             onDrop={handleDrop}
             onRemove={handleRemove}
           />
@@ -94,7 +108,8 @@ export const Editor = () => {
           <Typography variant="h6">Widget 3</Typography>
           <Typography>Graphic</Typography>
           <DropZone
-            widgets={widgets}
+            zoneId="3"
+            widgets={widgetsByZone[3]}
             onDrop={handleDrop}
             onRemove={handleRemove}
           />
