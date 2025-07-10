@@ -1,6 +1,6 @@
 import {useDrop} from 'react-dnd';
 import {Box, Paper, Typography, IconButton} from '@mui/material';
-import {WidgetRenderer} from '../WidgetRenderer';
+import WidgetRenderer from '../WidgetRenderer';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const ItemTypes = {WIDGET: 'widget'};
@@ -18,7 +18,7 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
       ref={drop}
       sx={{
         p: 2,
-        height: '100%',
+        height: '85%',
         border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',
         borderRadius: 2,
         position: 'relative',

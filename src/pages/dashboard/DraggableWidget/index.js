@@ -1,1 +1,3 @@
-export { DraggableWidget } from './DraggableWidget';
+import {DraggableWidget} from './DraggableWidget';
+
+export default DraggableWidget;

@@ -1,1 +1,3 @@
-export { PostCreate } from './PostCreate';
+import { PostCreate } from './PostCreate';
+
+export default PostCreate;

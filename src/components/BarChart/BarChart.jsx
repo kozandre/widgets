@@ -1,7 +1,7 @@
 import {Bar} from "@nivo/bar";
-import { mockBarData } from 'src/data/mockBarData';
+import {mockBarData} from 'src/data/mockBarData';
 
-export const BarChart = ({ width = 620, height = 350 }) => {
+export const BarChart = ({width = 620, height = 350}) => {
   return (
     <Bar
       data={mockBarData}

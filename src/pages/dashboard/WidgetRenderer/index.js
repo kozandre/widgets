@@ -1,1 +1,3 @@
-export { WidgetRenderer } from './WidgetRenderer';
+import {WidgetRenderer} from './WidgetRenderer';
+
+export default WidgetRenderer;

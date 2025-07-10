@@ -1,1 +1,3 @@
-export { UserShow } from './UserShow';
+import {UserShow} from './UserShow';
+
+export default UserShow;

@@ -1,1 +1,3 @@
-export { BarChartCustom } from './BarChartCustom';
+import {BarChartCustom} from './BarChartCustom';
+
+export default BarChartCustom;

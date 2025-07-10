@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, Card, CardContent, Typography, Button } from '@mui/material';
-import {Editor} from 'pages/dashboard/Editor';
+import Editor from 'pages/dashboard/Editor';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 const HomePage = () => {

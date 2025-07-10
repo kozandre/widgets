@@ -1,6 +1,6 @@
 import {Box, Typography,Paper} from '@mui/material';
-import {DropZone} from '../DropZone';
-import {Sidebar} from '../SideBar';
+import DropZone from '../DropZone';
+import Sidebar from '../SideBar';
 import {useState} from 'react';
 import {Responsive, WidthProvider} from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';

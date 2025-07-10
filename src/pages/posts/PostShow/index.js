@@ -1,1 +1,3 @@
-export { PostShow } from './PostShow';
+import {PostShow} from './PostShow';
+
+export default PostShow;
