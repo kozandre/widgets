@@ -16,6 +16,7 @@ const diagramData = [
 ];
 
 export const WidgetRenderer = ({ type }) => {
+
   switch (type) {
     case 'GaugeChart':
       return <GaugeChart />;

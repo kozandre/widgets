@@ -48,9 +48,10 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
           }}
         >
           <IconButton
+            className="non-draggable"
             size="small"
             onClick={() => onRemove(index)}
-            sx={{position: 'absolute', top: 8, right: 8}}
+            sx={{position: 'absolute', top: 0, right: 8}}
           >
             <DeleteIcon fontSize="small" />
           </IconButton>

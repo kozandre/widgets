@@ -58,6 +58,7 @@ export const Editor = () => {
         isResizable
         isDraggable
         containerPadding={[10, 30]}
+        draggableCancel=".non-draggable"
       >
         <Paper
           key="1"
