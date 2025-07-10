@@ -17,9 +17,11 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
     <Box
       ref={drop}
       sx={{
-        flex: 1,
-        minHeight: '80vh',
         p: 2,
+        height: '85%',
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: "center",
         border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',
         borderRadius: 2,
         position: 'relative',
@@ -30,11 +32,6 @@ export const DropZone = ({widgets, onDrop, onRemove}) => {
           variant="h6"
           color="text.secondary"
           sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            textAlign: 'center',
             pointerEvents: 'none',
             opacity: 0.6,
           }}
