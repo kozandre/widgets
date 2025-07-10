@@ -5,7 +5,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const chartTypes = ['BarChart', 'LineChart', 'PieChart'];
+const chartTypes = ['BarChart', 'LineChart', 'PieChart', 'GaugeChart'];
 
 const groupModes = ['grouped', 'stacked'];
 const layouts = ['vertical', 'horizontal'];
