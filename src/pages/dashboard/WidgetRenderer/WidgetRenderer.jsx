@@ -5,6 +5,7 @@ import BarChartCustom from 'components/BarChartCustom';
 import BarChart from 'components/BarChart';
 import PieChart from 'components/PieChart';
 import LineChart from "components/LineChart";
+import GaugeChart from "components/GaugeChart";
 
 const diagramData = [
   { name: 'Jan', value: 40 },
@@ -16,6 +17,8 @@ const diagramData = [
 
 export const WidgetRenderer = ({ type }) => {
   switch (type) {
+    case 'GaugeChart':
+      return <GaugeChart />;
     case 'LineChart':
       return <LineChart />;
     case 'PieChart':

@@ -6,6 +6,7 @@ export const Sidebar = () => (
     <Typography variant="h6" gutterBottom>
       Available Widgets
     </Typography>
+    <DraggableWidget type="GaugeChart" label="Gauge Chart" />
     <DraggableWidget type="LineChart" label="Line Chart" />
     <DraggableWidget type="PieChart" label="Pie Chart" />
     <DraggableWidget type="BarChart" label="Bar Chart" />

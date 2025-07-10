@@ -1,7 +1,7 @@
 import {Line} from "@nivo/line";
 import {mockLineData} from "src/data/mockLineData.js";
 
-export const LineChart = ({width = 620, height = 350}) => {
+export const LineChart = ({width = 620, height = 300}) => {
   return (
     <Line
       data={mockLineData}
