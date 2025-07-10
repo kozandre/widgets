@@ -6,7 +6,7 @@ export const LinePlotCustom =
   ({
      data,
      width = 620,
-     height = 350,
+     height = 300,
    }) => {
     const getY = d3.scaleLinear()
       .domain([0, 40])
