@@ -10,7 +10,7 @@ const chartTypes = ['BarChart', 'LineChart', 'PieChart', 'GaugeChart'];
 const groupModes = ['grouped', 'stacked'];
 const layouts = ['vertical', 'horizontal'];
 
-export function WidgetModal({ open, onClose, onCreate }) {
+function WidgetModal({ open, onClose, onCreate }) {
   const formik = useFormik({
     initialValues: {
       type: '',
@@ -92,3 +92,5 @@ export function WidgetModal({ open, onClose, onCreate }) {
     </Dialog>
   );
 }
+
+export default WidgetModal;

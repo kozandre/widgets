@@ -1,7 +1,7 @@
 import { Bar } from "@nivo/bar";
 import { mockBarData } from 'src/data/mockBarData';
 
-export const BarChart = ({config}) => {
+const BarChart = ({config}) => {
   const {
     width = 620,
     height = 300,
@@ -46,3 +46,5 @@ export const BarChart = ({config}) => {
     />
   );
 };
+
+export default BarChart;

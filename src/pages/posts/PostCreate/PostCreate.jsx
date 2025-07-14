@@ -1,6 +1,6 @@
 import {Create, ReferenceInput, SimpleForm, TextInput} from "react-admin";
 
-export const PostCreate = () => {
+const PostCreate = () => {
   return (
     <Create>
       <SimpleForm>
@@ -18,3 +18,5 @@ export const PostCreate = () => {
     </Create>
   );
 };
+
+export default PostCreate;

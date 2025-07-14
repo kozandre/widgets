@@ -1,12 +1,12 @@
 import { Admin, Resource } from "react-admin";
 import { Layout } from "./Layout";
 import { dataProvider } from "./dataProvider";
-import PostList from "./pages/posts/PostList";
-import PostEdit from "./pages/posts/PostEdit";
-import PostShow from "./pages/posts/PostShow";
-import UserList from "./pages/users/UserList";
-import UserShow from "./pages/users/UserShow";
-import PostCreate from "./pages/posts/PostCreate";
+import PostList from "./pages/posts/PostList/PostList";
+import PostEdit from "./pages/posts/PostEdit/PostEdit";
+import PostShow from "./pages/posts/PostShow/PostShow";
+import UserList from "./pages/users/UserList/UserList";
+import UserShow from "./pages/users/UserShow/UserShow";
+import PostCreate from "./pages/posts/PostCreate/PostCreate";
 import ArticleIcon from '@mui/icons-material/Article';
 import PersonIcon from '@mui/icons-material/Person';
 import HomePage from "./pages/home/HomePage/HomePage";

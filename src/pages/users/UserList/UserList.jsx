@@ -1,6 +1,6 @@
 import { List, Datagrid, TextField } from "react-admin";
 
-export const UserList = () => {
+const UserList = () => {
   return (
     <List>
       <Datagrid>
@@ -12,3 +12,5 @@ export const UserList = () => {
     </List>
   );
 };
+
+export default UserList;

@@ -1,6 +1,6 @@
 import { Show, SimpleShowLayout, TextField } from 'react-admin';
 
-export const UserShow = () => (
+const UserShow = () => (
   <Show>
     <SimpleShowLayout>
       <TextField source="id" />
@@ -10,3 +10,5 @@ export const UserShow = () => (
     </SimpleShowLayout>
   </Show>
 );
+
+export default UserShow;

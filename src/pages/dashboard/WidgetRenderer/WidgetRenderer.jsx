@@ -1,11 +1,11 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import LinePlotCustom from 'components/LinePlotCustom';
-import BarChartCustom from 'components/BarChartCustom';
-import BarChart from 'components/BarChart';
-import PieChart from 'components/PieChart';
-import LineChart from "components/LineChart";
-import GaugeChart from "components/GaugeChart";
+import LinePlotCustom from 'components/LinePlotCustom/LinePlotCustom';
+import BarChartCustom from 'components/BarChartCustom/BarChartCustom';
+import BarChart from 'components/BarChart/BarChart';
+import PieChart from 'components/PieChart/PieChart';
+import LineChart from "components/LineChart/LineChart";
+import GaugeChart from "components/GaugeChart/GaugeChart";
 
 const diagramData = [
   { name: 'Jan', value: 40 },
@@ -15,7 +15,7 @@ const diagramData = [
   { name: 'May', value: 15 },
 ];
 
-export const WidgetRenderer = ({ type, config }) => {
+const WidgetRenderer = ({ type, config }) => {
 
   switch (type) {
     case 'GaugeChart':
@@ -34,3 +34,5 @@ export const WidgetRenderer = ({ type, config }) => {
       return <Typography>Unknown Widget</Typography>;
   }
 };
+
+export default WidgetRenderer;

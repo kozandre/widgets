@@ -1,6 +1,6 @@
 import {Box, Typography, Paper} from '@mui/material';
-import DropZone from '../DropZone';
-import Sidebar from '../SideBar';
+import DropZone from '../DropZone/DropZone';
+import Sidebar from '../SideBar/SideBar';
 import {useState} from 'react';
 import {Responsive, WidthProvider} from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
@@ -8,7 +8,7 @@ import 'react-resizable/css/styles.css';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-export const Editor = () => {
+const Editor = () => {
 
   const [availableWidgets, setAvailableWidgets] = useState([]);
 
@@ -21,7 +21,7 @@ export const Editor = () => {
   const handleDrop = (zoneId, item) => {
     setWidgetsByZone((prev) => ({
       ...prev,
-      [zoneId]: [...(prev[zoneId] || []), item],
+      zoneId: [...(prev[zoneId] || []), item],
     }));
   };
 
@@ -125,3 +125,5 @@ export const Editor = () => {
     </Box>
   );
 };
+
+export default Editor;

@@ -3,7 +3,7 @@ import {Paper} from '@mui/material';
 
 const ItemTypes = {WIDGET: 'widget'};
 
-export const DraggableWidget = ({type, label}) => {
+const DraggableWidget = ({type, label}) => {
   const [, drag] = useDrag(() => ({
     type: ItemTypes.WIDGET,
     item: {type},
@@ -18,3 +18,5 @@ export const DraggableWidget = ({type, label}) => {
     </Paper>
   );
 };
+
+export default DraggableWidget;

@@ -15,7 +15,7 @@ const PostPanel = () => {
   return <div>{record?.body}</div>
 }
 
-export const PostList = () => {
+const PostList = () => {
   const postFilters = [
     <TextInput
       source="q"
@@ -57,3 +57,5 @@ export const PostList = () => {
     </List>
   );
 }
+
+export default PostList;

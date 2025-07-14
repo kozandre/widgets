@@ -16,7 +16,7 @@ const Custom = ({ center, bars }) => {
   );
 };
 
-export const GaugeChart = ({width = 620, height = 300}) => {
+const GaugeChart = ({width = 620, height = 300}) => {
 
   return (
     <RadialBar
@@ -47,3 +47,5 @@ export const GaugeChart = ({width = 620, height = 300}) => {
     />
   )
 }
+
+export default GaugeChart;

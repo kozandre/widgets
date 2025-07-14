@@ -1,11 +1,11 @@
 import {useDrop} from 'react-dnd';
 import {Box, Paper, Typography, IconButton} from '@mui/material';
-import WidgetRenderer from '../WidgetRenderer';
+import WidgetRenderer from '../WidgetRenderer/WidgetRenderer';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const ItemTypes = {WIDGET: 'widget'};
 
-export const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
+const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => {
@@ -64,3 +64,5 @@ export const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
     </Box>
   );
 };
+
+export default DropZone;

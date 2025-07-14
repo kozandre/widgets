@@ -1,9 +1,9 @@
 import { Button, Box } from '@mui/material';
-import AvailableWidgetsList from '../AvailableWidgetsList';
-import CreateWidgetModal from '../WidgetModal';
+import AvailableWidgetsList from '../AvailableWidgetsList/AvailableWidgetsList';
+import CreateWidgetModal from '../WidgetModal/WidgetModal';
 import {useState} from "react";
 
-export function Sidebar({ availableWidgets, setAvailableWidgets }) {
+function Sidebar({ availableWidgets, setAvailableWidgets }) {
   const [open, setOpen] = useState(false);
 
   const handleAddWidget = (widgetConfig) => {
@@ -24,3 +24,6 @@ export function Sidebar({ availableWidgets, setAvailableWidgets }) {
     </Box>
   );
 }
+
+
+export default Sidebar;

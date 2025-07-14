@@ -1,6 +1,6 @@
 import {Edit, ReferenceInput, SimpleForm, TextInput} from 'react-admin';
 
-export const PostEdit = () => (
+const PostEdit = () => (
   <Edit>
     <SimpleForm>
       <ReferenceInput
@@ -13,3 +13,5 @@ export const PostEdit = () => (
     </SimpleForm>
   </Edit>
 );
+
+export default PostEdit;
