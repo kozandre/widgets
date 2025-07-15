@@ -3,13 +3,20 @@ import { Typography } from '@mui/material';
 import BarChart from 'components/BarChart/BarChart';
 import PieChart from 'components/PieChart/PieChart';
 import LineChart from "components/LineChart/LineChart";
-import GaugeChart from "components/GaugeChart/GaugeChart";
-
+import GaugeChart from 'react-gauge-chart';
 
 const WidgetRenderer = ({ type, config }) => {
+
+
   switch (type) {
     case 'GaugeChart':
-      return <GaugeChart config={config} />;
+      const percents = config.config.percents / 100;
+      const levels = config.config.levels;
+      const arcWidth = config.config.arcWidth / 100;
+      const cornerRadius = config.config.arcWidth;
+      const isAnimate = config.config.animate;
+
+      return <GaugeChart nrOfLevels={levels} percent={percents} arcWidth={arcWidth} cornerRadius={cornerRadius} animate={isAnimate} />;
     case 'LineChart':
       return <LineChart config={config} />;
     case 'PieChart':
