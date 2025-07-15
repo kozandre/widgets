@@ -1,0 +1,21 @@
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  gap: 20px;
+}
+
+.grid-layout {
+  border: 2px solid #000;
+  border-radius: 20px;
+}
+
+.grid-layout-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.widget {
+  padding: 16px;
+}
