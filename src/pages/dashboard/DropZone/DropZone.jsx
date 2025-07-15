@@ -1,11 +1,11 @@
-import {useDrop} from 'react-dnd';
-import {Box, Paper, Typography, IconButton} from '@mui/material';
+import { useDrop } from 'react-dnd';
+import { Box, Paper, Typography, IconButton } from '@mui/material';
 import WidgetRenderer from '../WidgetRenderer/WidgetRenderer';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const ItemTypes = {WIDGET: 'widget'};
+const ItemTypes = { WIDGET: 'widget' };
 
-const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
+const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => {
@@ -33,7 +33,7 @@ const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
           sx={{
             pointerEvents: 'none',
             opacity: 0.6,
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           Перетаскивайте график сюда
@@ -53,12 +53,12 @@ const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
             className="non-draggable"
             size="small"
             onClick={() => onRemove(zoneId, index)}
-            sx={{position: 'absolute', top: 0, right: 8}}
+            sx={{ position: 'absolute', top: 0, right: 8 }}
           >
             <DeleteIcon fontSize="small" />
           </IconButton>
 
-          <WidgetRenderer type={widget.type} config={widget.config}/>
+          <WidgetRenderer type={widget.type} config={widget.config} />
         </Paper>
       ))}
     </Box>

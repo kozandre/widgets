@@ -1,8 +1,9 @@
-import {Box, Typography, Paper, Button} from '@mui/material';
+import { Box, Typography, Paper, Button } from '@mui/material';
 import DropZone from '../DropZone/DropZone';
 import Sidebar from '../SideBar/SideBar';
-import {useState} from 'react';
-import {Responsive, WidthProvider} from 'react-grid-layout';
+import WidgetModal from '../WidgetModal/WidgetModal';
+import { useState } from 'react';
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './styles.css';
@@ -12,19 +13,37 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 const Editor = () => {
   const [availableWidgets, setAvailableWidgets] = useState([]);
   const [showGrid, setShowGrid] = useState(false);
-  const [layouts, setLayouts] = useState({lg: []});
+  const [layouts, setLayouts] = useState({ lg: [] });
   const [widgetCount, setWidgetCount] = useState(0);
   const [widgetsByZone, setWidgetsByZone] = useState({});
 
-  const handleDrop = (zoneId, item) => {
-    setWidgetsByZone((prev) => ({
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pendingChartType, setPendingChartType] = useState(null);
+  const [targetZoneId, setTargetZoneId] = useState(null);
+
+  const handleDropInitiated = (type, zoneId) => {
+    setPendingChartType(type);
+    setTargetZoneId(zoneId);
+    setModalOpen(true);
+  };
+
+  const handleAddWidget = (config) => {
+
+    setWidgetsByZone(prev => ({
       ...prev,
-      [zoneId]: [...(prev[zoneId] || []), item],
+      [targetZoneId]: [...(prev[targetZoneId] || []), { type: pendingChartType, config }]
     }));
+    setModalOpen(false);
+    setPendingChartType(null);
+    setTargetZoneId(null);
+  };
+
+  const handleDrop = (zoneId, item) => {
+    handleDropInitiated(item.type, zoneId);
   };
 
   const handleRemove = (zoneId, indexToRemove) => {
-    setWidgetsByZone((prev) => ({
+    setWidgetsByZone(prev => ({
       ...prev,
       [zoneId]: prev[zoneId].filter((_, i) => i !== indexToRemove),
     }));
@@ -32,9 +51,9 @@ const Editor = () => {
 
   const generateRandomLayout = (i) => {
     const col = 12;
-    const w = Math.floor(Math.random() * 3) + 2;
-    const h = Math.floor(Math.random() * 2) + 2;
-    const x = (i * 2) % col;
+    const w = Math.floor(Math.random() * 5) + 2;
+    const h = Math.floor(Math.random() * 3) + 2;
+    const x = ((i * 2) - 2) % col;
     const y = Infinity;
     return {
       i: i.toString(),
@@ -46,17 +65,17 @@ const Editor = () => {
     };
   };
 
-  const handleAddWidget = () => {
+  const handleAddNewWidgetZone = () => {
     const newId = widgetCount + 1;
     const newLayout = generateRandomLayout(newId);
 
-    setLayouts((prev) => ({
+    setLayouts(prev => ({
       lg: [...prev.lg, newLayout],
     }));
 
     setWidgetCount(newId);
 
-    setWidgetsByZone((prev) => ({
+    setWidgetsByZone(prev => ({
       ...prev,
       [newId]: [],
     }));
@@ -70,7 +89,7 @@ const Editor = () => {
         <Button
           className="button-add-widget"
           variant="contained"
-          onClick={handleAddWidget}
+          onClick={handleAddNewWidgetZone}
           sx={showGrid ? { mb: 2 } : undefined}
         >
           Добавить виджет
@@ -94,7 +113,7 @@ const Editor = () => {
                 <Typography>Название</Typography>
                 <DropZone
                   zoneId={layout.i}
-                  widgets={widgetsByZone[layout.i]}
+                  widgets={widgetsByZone[layout.i] || []}
                   onDrop={handleDrop}
                   onRemove={handleRemove}
                 />
@@ -106,7 +125,13 @@ const Editor = () => {
 
       <Sidebar
         availableWidgets={availableWidgets}
-        setAvailableWidgets={setAvailableWidgets}
+      />
+
+      <WidgetModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreate={handleAddWidget}
+        initialType={pendingChartType}
       />
     </Box>
   );

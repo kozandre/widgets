@@ -1,28 +1,20 @@
-import { useDrag } from 'react-dnd';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import DraggableWidget from 'src/pages/dashboard/DraggableWidget/DraggableWidget.jsx';
 
-const ItemTypes = { WIDGET: 'widget' };
+const defaultCharts = [
+  { type: 'BarChart', config: { title: 'Bar Chart' } },
+  { type: 'LineChart', config: { title: 'Line Chart' } },
+  { type: 'PieChart', config: { title: 'Pie Chart' } },
+  { type: 'GaugeChart', config: { title: 'Gauge Chart' } },
+];
 
-const DraggableWidget = ({ widget }) => {
-  const [, drag] = useDrag(() => ({
-    type: ItemTypes.WIDGET,
-    item: { type: widget.type, config: widget.config }
-  }));
 
-  return (
-    <Paper ref={drag} className={'main-wdg'} sx={{ p: 1, mb: 1, cursor: 'grab' }}>
-      <Typography variant="subtitle1">{widget.config.title}</Typography>
-      <Typography variant="caption">{widget.type}</Typography>
-    </Paper>
-  );
-};
-
-function AvailableWidgetsList({ widgets }) {
+function AvailableWidgetsList() {
   return (
     <Box mt={2}>
       <Typography variant="h6">Доступные графики</Typography>
-      {widgets.map(widget => (
-        <DraggableWidget key={widget.id} widget={widget} />
+      {defaultCharts.map((widget, idx) => (
+        <DraggableWidget key={idx} widget={widget} />
       ))}
     </Box>
   );

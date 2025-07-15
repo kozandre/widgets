@@ -16,7 +16,6 @@ const diagramData = [
 ];
 
 const WidgetRenderer = ({ type, config }) => {
-
   switch (type) {
     case 'GaugeChart':
       return <GaugeChart config={config} />;
@@ -25,7 +24,7 @@ const WidgetRenderer = ({ type, config }) => {
     case 'PieChart':
       return <PieChart config={config} />;
     case 'BarChart':
-      return <BarChart config={config} />;
+      return <BarChart {...config} />;
     case 'LinePlotCustom':
       return <LinePlotCustom data={diagramData} />;
     case 'BarChartCustom':
