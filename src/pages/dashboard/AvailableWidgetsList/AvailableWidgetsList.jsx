@@ -8,7 +8,6 @@ const defaultCharts = [
   { type: 'GaugeChart', config: { title: 'Gauge Chart' } },
 ];
 
-
 function AvailableWidgetsList() {
   return (
     <Box mt={2}>

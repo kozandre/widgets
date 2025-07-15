@@ -1,0 +1,14 @@
+.main-graphic {
+  padding: 8px;
+  margin-bottom: 8px;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.graphic-img {
+  width: 50px;
+  height: auto;
+  object-fit: contain;
+}
