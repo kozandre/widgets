@@ -27,11 +27,16 @@ const DraggableWidget = ({widget}) => {
       className="main-graphic"
     >
       <Typography variant="subtitle1">{widget.config.title}</Typography>
-      <img
-        className="graphic-img"
-        src={widgetIcons[widget.type]}
-        alt={widget.type}
-      />
+
+      {widget.type !== "TextChart" && (
+        <img
+          className="graphic-img"
+          src={widgetIcons[widget.type]}
+          alt={widget.type}
+        />
+        )
+      }
+
     </Paper>
   );
 };

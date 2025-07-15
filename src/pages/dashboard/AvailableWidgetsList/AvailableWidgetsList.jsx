@@ -6,6 +6,7 @@ const defaultCharts = [
   { type: 'LineChart', config: { title: 'Line Chart' } },
   { type: 'PieChart', config: { title: 'Pie Chart' } },
   { type: 'GaugeChart', config: { title: 'Gauge Chart' } },
+  { type: 'TextChart', config: { title: 'Text Chart' } },
 ];
 
 function AvailableWidgetsList() {

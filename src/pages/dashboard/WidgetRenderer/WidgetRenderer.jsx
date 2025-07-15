@@ -1,22 +1,25 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import {Typography} from '@mui/material';
 import BarChart from 'components/BarChart/BarChart';
 import PieChart from 'components/PieChart/PieChart';
 import LineChart from "components/LineChart/LineChart";
 import GaugeChart from 'react-gauge-chart';
+import TextChart from "components/TextChart/TextChart";
 
-const WidgetRenderer = ({ type, config }) => {
+const WidgetRenderer = ({type, config}) => {
 
 
   switch (type) {
+    case 'TextChart':
+      return <TextChart {...config} />;
     case 'GaugeChart':
-      const percents = config.config.percents / 100;
-      const levels = config.config.levels;
-      const arcWidth = config.config.arcWidth / 100;
-      const cornerRadius = config.config.arcWidth;
-      const isAnimate = config.config.animate;
-
-      return <GaugeChart nrOfLevels={levels} percent={percents} arcWidth={arcWidth} cornerRadius={cornerRadius} animate={isAnimate} />;
+      return <GaugeChart
+        nrOfLevels={config.config.levels}
+        percent={config.config.percents}
+        arcWidth={config.config.arcWidth}
+        cornerRadius={config.config.cornerRadius}
+        animate={config.config.animate}
+      />;
     case 'LineChart':
       return <LineChart config={config} />;
     case 'PieChart':
