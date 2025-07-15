@@ -17,7 +17,7 @@ function Sidebar({ availableWidgets, setAvailableWidgets }) {
   return (
     <Box sx={{ width: 300 }}>
       <Button variant="contained" onClick={() => setOpen(true)} fullWidth>
-        Add widget
+        Добавить график
       </Button>
       <AvailableWidgetsList widgets={availableWidgets} />
       <CreateWidgetModal open={open} onClose={() => setOpen(false)} onCreate={handleAddWidget} />

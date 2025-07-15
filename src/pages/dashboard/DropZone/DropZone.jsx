@@ -36,7 +36,7 @@ const DropZone = ({zoneId, widgets, onDrop, onRemove}) => {
             textAlign: 'center'
           }}
         >
-          Drag and drop widgets here
+          Перетаскивайте график сюда
         </Typography>
       )}
 

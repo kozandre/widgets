@@ -20,7 +20,7 @@ const DraggableWidget = ({ widget }) => {
 function AvailableWidgetsList({ widgets }) {
   return (
     <Box mt={2}>
-      <Typography variant="h6">Available Widgets</Typography>
+      <Typography variant="h6">Доступные графики</Typography>
       {widgets.map(widget => (
         <DraggableWidget key={widget.id} widget={widget} />
       ))}

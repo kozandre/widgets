@@ -90,8 +90,8 @@ const Editor = () => {
           >
             {layouts.lg.map((layout) => (
               <Paper key={layout.i} elevation={3} className="widget">
-                <Typography variant="h6">Widget {layout.i}</Typography>
-                <Typography>Name</Typography>
+                <Typography variant="h6">Виджет {layout.i}</Typography>
+                <Typography>Название</Typography>
                 <DropZone
                   zoneId={layout.i}
                   widgets={widgetsByZone[layout.i]}

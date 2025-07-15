@@ -21,13 +21,13 @@ const HomePage = () => {
             <Card sx={{ maxWidth: 400, padding: 2, textAlign: 'center' }}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Welcome to the Dashboard
+                  Добро пожаловать
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                  Click below to start editing
+                  Нажмите ниже, чтобы начать редактирование
                 </Typography>
                 <Button variant="contained" onClick={() => setShowEditor(true)}>
-                  Start Editor
+                  Начать редакторование
                 </Button>
               </CardContent>
             </Card>
