@@ -23,7 +23,7 @@ const WidgetRenderer = ({type, config}) => {
     case 'LineChart':
       return <LineChart config={config} />;
     case 'PieChart':
-      return <PieChart config={config} />;
+      return <PieChart {...config} />;
     case 'BarChart':
       return <BarChart {...config} />;
     default:

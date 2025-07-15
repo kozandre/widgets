@@ -2,28 +2,50 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, TextField, MenuItem, Stack, FormControlLabel, Checkbox
 } from '@mui/material';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
 const groupModes = ['grouped', 'stacked'];
 const layouts = ['vertical', 'horizontal'];
 const boldness = [400, 500, 600, 700, 800];
 
-function WidgetModal({ open, onClose, onCreate, initialType }) {
+function WidgetModal({open, onClose, onCreate, initialType}) {
   const getInitialValues = (type) => {
     switch (type) {
       case 'BarChart':
-        return  {title: '', groupMode: 'grouped', layout: 'vertical' };
+        return {title: '', groupMode: 'grouped', layout: 'vertical'};
       case 'LineChart':
-        return { title: '' };
+        return {title: ''};
       case 'PieChart':
-        return { title: '' };
+        return {
+          title: '',
+          innerRadius: 0.5,
+          padAngle: 0,
+          sortByValue: false,
+          enableArcLabels: true,
+          enableArcLinkLabels: true,
+          isInteractive: true,
+          animate: true
+        };
       case 'GaugeChart':
-        return { title: '', levels: 20, percents: 0.86, arcWidth: 0.3, cornerRadius: 3, animate: true };
+        return {
+          title: '',
+          levels: 20,
+          percents: 0.86,
+          arcWidth: 0.3,
+          cornerRadius: 3,
+          animate: true
+        };
       case 'TextChart':
-        return { title: '', text: '', fontSize: 16, fontWeight: 600, color: '#ffffff' };
+        return {
+          title: '',
+          text: '',
+          fontSize: 16,
+          fontWeight: 600,
+          color: '#ffffff'
+        };
       default:
-        return { title: '' };
+        return {title: ''};
     }
   };
 
@@ -50,6 +72,13 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
       case 'PieChart':
         return Yup.object({
           title: Yup.string().required('Required field'),
+          innerRadius: Yup.number().min(0).max(1).required('Required field'),
+          padAngle: Yup.number().min(0).max(45).required('Required field'),
+          sortByValue: Yup.boolean().required('Required field'),
+          enableArcLabels: Yup.boolean().required('Required field'),
+          enableArcLinkLabels: Yup.boolean().required('Required field'),
+          isInteractive: Yup.boolean().required('Required field'),
+          animate: Yup.boolean().required('Required field'),
         });
       case 'GaugeChart':
         return Yup.object({
@@ -83,16 +112,22 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
     validationSchema: getValidationSchema(initialType),
     enableReinitialize: true,
     onSubmit: (values) => {
-      onCreate({ type: initialType, config: values });
+      onCreate({type: initialType, config: values});
     }
   });
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+    >
       <DialogTitle>Настройки {initialType}</DialogTitle>
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
-          <Stack spacing={2} sx={{ mt: 1 }}>
+          <Stack
+            spacing={2}
+            sx={{mt: 1}}
+          >
             <TextField
               label="Название"
               name="title"
@@ -116,7 +151,10 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   fullWidth
                 >
                   {groupModes.map(mode => (
-                    <MenuItem key={mode} value={mode}>{mode}</MenuItem>
+                    <MenuItem
+                      key={mode}
+                      value={mode}
+                    >{mode}</MenuItem>
                   ))}
                 </TextField>
 
@@ -131,7 +169,10 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   fullWidth
                 >
                   {layouts.map(layout => (
-                    <MenuItem key={layout} value={layout}>{layout}</MenuItem>
+                    <MenuItem
+                      key={layout}
+                      value={layout}
+                    >{layout}</MenuItem>
                   ))}
                 </TextField>
               </>
@@ -159,7 +200,7 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   error={formik.touched.fontSize && !!formik.errors.fontSize}
                   helperText={formik.touched.fontSize && formik.errors.fontSize}
                   fullWidth
-                  inputProps={{ min: 8, max: 72 }}
+                  inputProps={{min: 8, max: 72}}
                 />
                 <TextField
                   label="Цвет"
@@ -170,7 +211,7 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   error={formik.touched.color && !!formik.errors.color}
                   helperText={formik.touched.color && formik.errors.color}
                   fullWidth
-                  sx={{ width: '100px' }}
+                  sx={{width: '100px'}}
                 />
                 <TextField
                   select
@@ -183,9 +224,89 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   fullWidth
                 >
                   {boldness.map(weight => (
-                    <MenuItem key={weight} value={weight}>{weight}</MenuItem>
+                    <MenuItem
+                      key={weight}
+                      value={weight}
+                    >{weight}</MenuItem>
                   ))}
                 </TextField>
+              </>
+            )}
+
+            {initialType === 'PieChart' && (
+              <>
+                <TextField
+                  label="Внутренний радиус"
+                  name="innerRadius"
+                  type="number"
+                  value={formik.values.innerRadius}
+                  onChange={formik.handleChange}
+                  error={formik.touched.innerRadius && !!formik.errors.innerRadius}
+                  helperText={formik.touched.innerRadius && formik.errors.innerRadius}
+                  fullWidth
+                  inputProps={{ min: 0, max: 1, step: 0.01 }}
+                />
+                <TextField
+                  label="Отступ между секторами"
+                  name="padAngle"
+                  type="number"
+                  value={formik.values.padAngle}
+                  onChange={formik.handleChange}
+                  error={formik.touched.padAngle && !!formik.errors.padAngle}
+                  helperText={formik.touched.padAngle && formik.errors.padAngle}
+                  fullWidth
+                  inputProps={{ min: 0, max: 45, step: 1 }}
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sortByValue"
+                      checked={formik.values.sortByValue}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Сортировать по значению"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableArcLabels"
+                      checked={formik.values.enableArcLabels}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Показывать подписи дуг"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableArcLinkLabels"
+                      checked={formik.values.enableArcLinkLabels}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Показывать подписи с линиями"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="isInteractive"
+                      checked={formik.values.isInteractive}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Интерактивность"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="animate"
+                      checked={formik.values.animate}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Анимация"
+                />
               </>
             )}
 
@@ -200,6 +321,7 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   error={formik.touched.percents && !!formik.errors.percents}
                   helperText={formik.touched.percents && formik.errors.percents}
                   fullWidth
+                  inputProps={{ min: 0, max: 1, step: 0.01 }}
                 />
                 <TextField
                   label="Количество уровней"
@@ -220,6 +342,7 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
                   error={formik.touched.arcWidth && !!formik.errors.arcWidth}
                   helperText={formik.touched.arcWidth && formik.errors.arcWidth}
                   fullWidth
+                  inputProps={{ min: 0, max: 1, step: 0.01 }}
                 />
                 <TextField
                   label="Радиус углов части круга"
@@ -248,7 +371,10 @@ function WidgetModal({ open, onClose, onCreate, initialType }) {
 
         <DialogActions>
           <Button onClick={onClose}>Отмена</Button>
-          <Button type="submit" variant="contained">Сохранить</Button>
+          <Button
+            type="submit"
+            variant="contained"
+          >Сохранить</Button>
         </DialogActions>
       </form>
     </Dialog>
