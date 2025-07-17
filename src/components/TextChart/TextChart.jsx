@@ -6,7 +6,7 @@ const TextChart = ({ config }) => {
   const { text, fontSize = 16, color = '#000', fontWeight = 400 } = config;
 
   return (
-    <Typography className="text"
+    <p className="text"
       style={{
         fontSize,
         color,
@@ -14,7 +14,7 @@ const TextChart = ({ config }) => {
       }}
     >
       {text || 'Текст отсутствует'}
-    </Typography>
+    </p>
   );
 };
 

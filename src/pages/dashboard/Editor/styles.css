@@ -19,3 +19,30 @@
 .widget {
   padding: 16px;
 }
+
+.react-resizable-handle {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.react-resizable-handle::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 3px !important;
+  bottom: 3px !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-right: 2px solid #1976d2 !important;
+  border-bottom: 2px solid #1976d2 !important;
+  pointer-events: none !important;
+  transform: scale(1) !important;
+  transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+.react-resizable-handle:hover::after {
+  transform: scale(2) !important;
+  border-color: #ff5722 !important;
+}
