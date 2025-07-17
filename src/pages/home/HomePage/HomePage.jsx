@@ -25,7 +25,7 @@ const HomePage = () => {
                   Нажмите ниже, чтобы начать редактирование
                 </Typography>
                 <Button variant="contained" onClick={() => setShowEditor(true)}>
-                  Начать редакторование
+                  Начать редактирование
                 </Button>
               </CardContent>
             </Card>

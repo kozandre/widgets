@@ -5,6 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const ItemTypes = { WIDGET: 'widget' };
 
+import './styles.css';
+
 const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
@@ -17,13 +19,10 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
 
   return (
     <Box
+      className="dropzone-box"
       ref={drop}
       sx={{
-        p: 2,
-        height: '85%',
         border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',
-        borderRadius: 2,
-        position: 'relative',
       }}
     >
       {isEmpty && (
@@ -42,18 +41,13 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
 
       {widgets.map((widget, index) => (
         <Paper
+          className="graphic-wrapper"
           key={index}
-          sx={{
-            p: 2,
-            mb: 2,
-            position: 'relative',
-          }}
         >
           <IconButton
             className="non-draggable"
             size="small"
             onClick={() => onRemove(zoneId, index)}
-            sx={{ position: 'absolute', top: 0, right: 8 }}
           >
             <DeleteIcon fontSize="small" />
           </IconButton>

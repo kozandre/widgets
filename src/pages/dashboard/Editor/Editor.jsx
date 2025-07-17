@@ -90,7 +90,6 @@ const Editor = () => {
           className="button-add-widget"
           variant="contained"
           onClick={handleAddNewWidgetZone}
-          sx={showGrid ? { mb: 2 } : undefined}
         >
           Добавить виджет
         </Button>

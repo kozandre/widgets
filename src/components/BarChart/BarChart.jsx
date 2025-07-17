@@ -1,11 +1,8 @@
-import { Bar } from "@nivo/bar";
+import { ResponsiveBar } from "@nivo/bar";
 import { mockBarData } from "src/data/mockBarData";
 
 const BarChart = ({ config }) => {
   const {
-    title = "",
-    width = 620,
-    height = 300,
     groupMode = "grouped",
     layout = "vertical",
     enableLabel = true,
@@ -16,10 +13,8 @@ const BarChart = ({ config }) => {
   } = config;
 
   return (
-    <Bar
+    <ResponsiveBar
       data={mockBarData}
-      width={width}
-      height={height}
       indexBy="country"
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
       groupMode={groupMode}
