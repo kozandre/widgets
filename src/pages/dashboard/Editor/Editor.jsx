@@ -1,9 +1,9 @@
-import { Box, Typography, Paper, Button } from '@mui/material';
+import {Box, Typography, Paper, Button} from '@mui/material';
 import DropZone from '../DropZone/DropZone';
 import Sidebar from '../SideBar/SideBar';
 import WidgetModal from '../WidgetModal/WidgetModal';
-import { useState } from 'react';
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import {useState} from 'react';
+import {Responsive, WidthProvider} from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './styles.css';
@@ -13,7 +13,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 const Editor = () => {
   const [availableWidgets, setAvailableWidgets] = useState([]);
   const [showGrid, setShowGrid] = useState(false);
-  const [layouts, setLayouts] = useState({ lg: [] });
+  const [layouts, setLayouts] = useState({lg: []});
   const [widgetCount, setWidgetCount] = useState(0);
   const [widgetsByZone, setWidgetsByZone] = useState({});
 
@@ -31,7 +31,10 @@ const Editor = () => {
 
     setWidgetsByZone(prev => ({
       ...prev,
-      [targetZoneId]: [...(prev[targetZoneId] || []), { type: pendingChartType, config }]
+      [targetZoneId]: [...(prev[targetZoneId] || []), {
+        type: pendingChartType,
+        config
+      }]
     }));
     setModalOpen(false);
     setPendingChartType(null);
@@ -49,27 +52,82 @@ const Editor = () => {
     }));
   };
 
-  const generateRandomLayout = (i) => {
-    const col = 12;
-    const w = Math.floor(Math.random() * 5) + 2;
-    const h = Math.floor(Math.random() * 3) + 2;
-    const x = ((i * 2) - 2) % col;
-    const y = Infinity;
+  const generateNewLayoutItem = (existingLayouts, newId) => {
+    const colCount = 12;
+    const defaultWidth = 4;
+    const defaultHeight = 2;
+
+    const occupied = new Set();
+    existingLayouts.forEach(({x, y, w, h}) => {
+      for (let i = x; i < x + w; i++) {
+        for (let j = y; j < y + h; j++) {
+          occupied.add(`${i},${j}`);
+        }
+      }
+    });
+
+    let found = false;
+    let posX = 0;
+    let posY = 0;
+
+    for (let y = 0; y < 100 && !found; y++) {
+      for (let x = 0; x <= colCount - defaultWidth; x++) {
+        let free = true;
+        for (let dx = 0; dx < defaultWidth; dx++) {
+          for (let dy = 0; dy < defaultHeight; dy++) {
+            if (occupied.has(`${x + dx},${y + dy}`)) {
+              free = false;
+              break;
+            }
+          }
+          if (!free) break;
+        }
+        if (free) {
+          posX = x;
+          posY = y;
+          found = true;
+          break;
+        }
+      }
+    }
+
     return {
-      i: i.toString(),
-      x,
-      y,
-      w,
-      h,
+      i: newId.toString(),
+      x: posX,
+      y: posY,
+      w: defaultWidth,
+      h: defaultHeight,
       resizeHandles: ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne'],
+      minW: 3,
+      minH: 2,
     };
   };
 
+  const handleLayoutChange = (currentLayout, allLayouts) => {
+    const updatedLayouts = {
+      ...layouts,
+      lg: currentLayout.map((item) => {
+        const existing = layouts.lg.find((l) => l.i === item.i);
+        return {
+          ...item,
+          resizeHandles: existing?.resizeHandles || ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne'],
+          minW: existing?.minW || 3,
+          minH: existing?.minH || 2,
+        };
+      }),
+    };
+
+    setLayouts(updatedLayouts);
+  };
+
+
+
   const handleAddNewWidgetZone = () => {
     const newId = widgetCount + 1;
-    const newLayout = generateRandomLayout(newId);
+    const newLayout = generateNewLayoutItem(layouts.lg, newId);
 
     setLayouts(prev => ({
+      ...prev,
       lg: [...prev.lg, newLayout],
     }));
 
@@ -85,7 +143,10 @@ const Editor = () => {
 
   return (
     <Box className="layout-wrapper">
-      <Box className="grid-layout-wrapper" sx={showGrid ? { display: 'block' } : undefined}>
+      <Box
+        className="grid-layout-wrapper"
+        sx={showGrid ? {display: 'block'} : undefined}
+      >
         <Button
           className="button-add-widget"
           variant="contained"
@@ -98,8 +159,9 @@ const Editor = () => {
           <ResponsiveGridLayout
             className="grid-layout"
             layouts={layouts}
-            breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480 }}
-            cols={{ lg: 12, md: 10, sm: 6, xs: 4 }}
+            onLayoutChange={handleLayoutChange}
+            breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
+            cols={{lg: 12, md: 10, sm: 6, xs: 4}}
             rowHeight={150}
             isResizable
             isDraggable
@@ -107,7 +169,11 @@ const Editor = () => {
             draggableCancel=".non-draggable"
           >
             {layouts.lg.map((layout) => (
-              <Paper key={layout.i} elevation={3} className="widget">
+              <Paper
+                key={layout.i}
+                elevation={3}
+                className="widget"
+              >
                 <Typography variant="h6">Виджет {layout.i}</Typography>
                 <Typography>Название</Typography>
                 <DropZone
