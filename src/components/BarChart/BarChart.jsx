@@ -1,12 +1,18 @@
 import { Bar } from "@nivo/bar";
-import { mockBarData } from 'src/data/mockBarData';
+import { mockBarData } from "src/data/mockBarData";
 
-const BarChart = ({config}) => {
+const BarChart = ({ config }) => {
   const {
+    title = "",
     width = 620,
     height = 300,
     groupMode = "grouped",
-    layout = "vertical"
+    layout = "vertical",
+    enableLabel = true,
+    enableTotals = false,
+    enableGridX = false,
+    enableGridY = true,
+    isInteractive = true,
   } = config;
 
   return (
@@ -20,28 +26,27 @@ const BarChart = ({config}) => {
       layout={layout}
       padding={0}
       innerPadding={1}
-      enableLabel={false}
-      labelOffset={2}
-      labelSkipWidth={11}
-      labelSkipHeight={10}
-      colors={{ scheme: 'dark2' }}
-      borderRadius={6}
-      borderColor={{ from: 'color', modifiers: [] }}
+      enableLabel={enableLabel}
+      colors={{ scheme: "dark2" }}
+      borderColor={{ from: "color", modifiers: [] }}
       legends={[
         {
-          dataFrom: 'keys',
-          anchor: 'bottom-right',
-          direction: 'column',
+          dataFrom: "keys",
+          anchor: "bottom-right",
+          direction: "column",
           translateX: 120,
           itemsSpacing: 3,
           itemWidth: 100,
-          itemHeight: 16
-        }
+          itemHeight: 16,
+        },
       ]}
-      totalsOffset={9}
-      axisBottom={{ legend: 'country (indexBy)', legendOffset: 32 }}
-      axisLeft={{ legend: 'food', legendOffset: -40 }}
+      enableTotals={enableTotals}
+      enableGridX={enableGridX}
+      enableGridY={enableGridY}
+      isInteractive={isInteractive}
       isFocusable={true}
+      axisBottom={{ legend: "country (indexBy)", legendOffset: 32 }}
+      axisLeft={{ legend: "food", legendOffset: -40 }}
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     />
   );

@@ -21,7 +21,7 @@ const WidgetRenderer = ({type, config}) => {
         animate={config.config.animate}
       />;
     case 'LineChart':
-      return <LineChart config={config} />;
+      return <LineChart {...config} />;
     case 'PieChart':
       return <PieChart {...config} />;
     case 'BarChart':

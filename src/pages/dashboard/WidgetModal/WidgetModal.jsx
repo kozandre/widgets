@@ -13,9 +13,32 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
   const getInitialValues = (type) => {
     switch (type) {
       case 'BarChart':
-        return {title: '', groupMode: 'grouped', layout: 'vertical'};
+        return {
+          title: '',
+          groupMode: 'grouped',
+          layout: 'vertical',
+          enableLabel: true,
+          enableTotals: false,
+          enableGridX: false,
+          enableGridY: true,
+          isInteractive: true,
+        };
       case 'LineChart':
-        return {title: ''};
+        return {
+          title: '',
+          lineWidth: 2,
+          enableArea: false,
+          areaOpacity: 0.2,
+          enablePoints: true,
+          pointSize: 6,
+          enablePointLabel: false,
+          pointLabel: 'yFormatted',
+          pointLabelYOffset: -12,
+          enableGridX: true,
+          enableGridY: true,
+          isInteractive: true,
+          enableCrosshair: true,
+        };
       case 'PieChart':
         return {
           title: '',
@@ -64,10 +87,27 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
           title: Yup.string().required('Required field'),
           groupMode: Yup.string().required('Required field'),
           layout: Yup.string().required('Required field'),
+          enableLabel: Yup.boolean().required('Required field'),
+          enableTotals: Yup.boolean().required('Required field'),
+          enableGridX: Yup.boolean().required('Required field'),
+          enableGridY: Yup.boolean().required('Required field'),
+          isInteractive: Yup.boolean().required('Required field'),
         });
       case 'LineChart':
         return Yup.object({
           title: Yup.string().required('Required field'),
+          lineWidth: Yup.number().required('Required field').min(1).max(20),
+          enableArea: Yup.boolean().required('Required field'),
+          areaOpacity: Yup.number().required('Required field').min(0).max(1),
+          enablePoints: Yup.boolean().required('Required field'),
+          pointSize: Yup.number().required('Required field').min(2).max(20),
+          enablePointLabel: Yup.boolean().required('Required field'),
+          pointLabel: Yup.string().oneOf(['data.xFormatted', 'data.yFormatted'], 'Должно быть "X" или "Y"'),
+          pointLabelYOffset: Yup.number().required('Required field').min(-12).max(24),
+          enableGridX: Yup.boolean().required('Required field'),
+          enableGridY: Yup.boolean().required('Required field'),
+          isInteractive: Yup.boolean().required('Required field'),
+          enableCrosshair: Yup.boolean().required('Required field'),
         });
       case 'PieChart':
         return Yup.object({
@@ -175,6 +215,186 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
                     >{layout}</MenuItem>
                   ))}
                 </TextField>
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableLabel"
+                      checked={formik.values.enableLabel}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Показывать подписи над столбцами"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableTotals"
+                      checked={formik.values.enableTotals}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Показывать суммы над группами"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableGridX"
+                      checked={formik.values.enableGridX}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Сетка по X"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableGridY"
+                      checked={formik.values.enableGridY}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Сетка по Y"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="isInteractive"
+                      checked={formik.values.isInteractive}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Интерактивность"
+                />
+              </>
+            )}
+
+            {initialType === 'LineChart' && (
+              <>
+                <TextField
+                  label="Толщина линии"
+                  name="lineWidth"
+                  type="number"
+                  value={formik.values.lineWidth}
+                  onChange={formik.handleChange}
+                  error={formik.touched.lineWidth && !!formik.errors.lineWidth}
+                  helperText={formik.touched.lineWidth && formik.errors.lineWidth}
+                  fullWidth
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableArea"
+                      checked={formik.values.enableArea}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Заполнить область под линией"
+                />
+                <TextField
+                  label="Прозрачность области"
+                  name="areaOpacity"
+                  type="number"
+                  value={formik.values.areaOpacity}
+                  onChange={formik.handleChange}
+                  error={formik.touched.areaOpacity && !!formik.errors.areaOpacity}
+                  helperText={formik.touched.areaOpacity && formik.errors.areaOpacity}
+                  fullWidth
+                  inputProps={{min: 0, max: 1, step: 0.1}}
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enablePoints"
+                      checked={formik.values.enablePoints}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Показывать точки"
+                />
+                <TextField
+                  label="Размер точки"
+                  name="pointSize"
+                  type="number"
+                  value={formik.values.pointSize}
+                  onChange={formik.handleChange}
+                  error={formik.touched.pointSize && !!formik.errors.pointSize}
+                  helperText={formik.touched.pointSize && formik.errors.pointSize}
+                  fullWidth
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enablePointLabel"
+                      checked={formik.values.enablePointLabel}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Подписи точек"
+                />
+                <TextField
+                  select
+                  label="Ось подписи точки"
+                  name="pointLabel"
+                  value={formik.values.pointLabel}
+                  onChange={formik.handleChange}
+                  error={formik.touched.pointLabel && !!formik.errors.pointLabel}
+                  helperText={formik.touched.pointLabel && formik.errors.pointLabel}
+                  fullWidth
+                >
+                  <MenuItem value="data.xFormatted">X</MenuItem>
+                  <MenuItem value="data.yFormatted">Y</MenuItem>
+                </TextField>
+                <TextField
+                  label="Смещение подписи по Y"
+                  name="pointLabelYOffset"
+                  type="number"
+                  value={formik.values.pointLabelYOffset}
+                  onChange={formik.handleChange}
+                  error={formik.touched.pointLabelYOffset && !!formik.errors.pointLabelYOffset}
+                  helperText={formik.touched.pointLabelYOffset && formik.errors.pointLabelYOffset}
+                  fullWidth
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableGridX"
+                      checked={formik.values.enableGridX}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Сетка по X"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableGridY"
+                      checked={formik.values.enableGridY}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Сетка по Y"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="isInteractive"
+                      checked={formik.values.isInteractive}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Интерактивность"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="enableCrosshair"
+                      checked={formik.values.enableCrosshair}
+                      onChange={formik.handleChange}
+                    />
+                  }
+                  label="Курсор по оси"
+                />
               </>
             )}
 
@@ -244,7 +464,7 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
                   error={formik.touched.innerRadius && !!formik.errors.innerRadius}
                   helperText={formik.touched.innerRadius && formik.errors.innerRadius}
                   fullWidth
-                  inputProps={{ min: 0, max: 1, step: 0.01 }}
+                  inputProps={{min: 0, max: 1, step: 0.01}}
                 />
                 <TextField
                   label="Отступ между секторами"
@@ -255,7 +475,7 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
                   error={formik.touched.padAngle && !!formik.errors.padAngle}
                   helperText={formik.touched.padAngle && formik.errors.padAngle}
                   fullWidth
-                  inputProps={{ min: 0, max: 45, step: 1 }}
+                  inputProps={{min: 0, max: 45, step: 1}}
                 />
                 <FormControlLabel
                   control={
@@ -321,7 +541,7 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
                   error={formik.touched.percents && !!formik.errors.percents}
                   helperText={formik.touched.percents && formik.errors.percents}
                   fullWidth
-                  inputProps={{ min: 0, max: 1, step: 0.01 }}
+                  inputProps={{min: 0, max: 1, step: 0.01}}
                 />
                 <TextField
                   label="Количество уровней"
@@ -342,7 +562,7 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
                   error={formik.touched.arcWidth && !!formik.errors.arcWidth}
                   helperText={formik.touched.arcWidth && formik.errors.arcWidth}
                   fullWidth
-                  inputProps={{ min: 0, max: 1, step: 0.01 }}
+                  inputProps={{min: 0, max: 1, step: 0.01}}
                 />
                 <TextField
                   label="Радиус углов части круга"
