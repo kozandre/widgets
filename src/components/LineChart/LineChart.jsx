@@ -1,7 +1,7 @@
-import {Line} from "@nivo/line";
+import {ResponsiveLine} from "@nivo/line";
 import {mockLineData} from "src/data/mockLineData.js";
 
-const LineChart = ({width = 620, height = 300, config = {}}) => {
+const LineChart = ({config = {}}) => {
   const {
     lineWidth = 2,
     enableArea = false,
@@ -16,12 +16,10 @@ const LineChart = ({width = 620, height = 300, config = {}}) => {
     isInteractive = true,
     enableCrosshair = true,
   } = config;
-  console.log(pointLabel);
+
   return (
-    <Line
+    <ResponsiveLine
       data={mockLineData}
-      width={width}
-      height={height}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
       axisBottom={{ legend: 'transportation', legendOffset: 36 }}
