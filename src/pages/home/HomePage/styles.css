@@ -1,0 +1,15 @@
+.card-wrapper {
+  max-width: 400px;
+  padding: 16px;
+  text-align: center;
+}
+
+.box {
+  padding: 32px;
+}
+
+.box-wrapper {
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
