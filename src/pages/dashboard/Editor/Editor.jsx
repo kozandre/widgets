@@ -21,6 +21,17 @@ const Editor = () => {
   const [pendingChartType, setPendingChartType] = useState(null);
   const [targetZoneId, setTargetZoneId] = useState(null);
 
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditWidget = (zoneId, index, widget) => {
+    setTargetZoneId(zoneId);
+    setEditingIndex(index);
+    setPendingChartType(widget.type);
+    setModalOpen(true);
+    setIsEditing(true);
+  };
+
   const handleDropInitiated = (type, zoneId) => {
     setPendingChartType(type);
     setTargetZoneId(zoneId);
@@ -28,17 +39,32 @@ const Editor = () => {
   };
 
   const handleAddWidget = (config) => {
+    setWidgetsByZone(prev => {
+      const updated = [...(prev[targetZoneId] || [])];
 
-    setWidgetsByZone(prev => ({
-      ...prev,
-      [targetZoneId]: [...(prev[targetZoneId] || []), {
-        type: pendingChartType,
-        config
-      }]
-    }));
+      if (isEditing && editingIndex !== null) {
+        updated[editingIndex] = {
+          type: pendingChartType,
+          config,
+        };
+      } else {
+        updated.push({
+          type: pendingChartType,
+          config,
+        });
+      }
+
+      return {
+        ...prev,
+        [targetZoneId]: updated,
+      };
+    });
+
     setModalOpen(false);
     setPendingChartType(null);
     setTargetZoneId(null);
+    setEditingIndex(null);
+    setIsEditing(false);
   };
 
   const handleDrop = (zoneId, item) => {
@@ -120,8 +146,6 @@ const Editor = () => {
     setLayouts(updatedLayouts);
   };
 
-
-
   const handleAddNewWidgetZone = () => {
     const newId = widgetCount + 1;
     const newLayout = generateNewLayoutItem(layouts.lg, newId);
@@ -181,6 +205,7 @@ const Editor = () => {
                   widgets={widgetsByZone[layout.i] || []}
                   onDrop={handleDrop}
                   onRemove={handleRemove}
+                  onEdit={handleEditWidget}
                 />
               </Paper>
             ))}

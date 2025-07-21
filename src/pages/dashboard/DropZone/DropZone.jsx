@@ -2,12 +2,13 @@ import { useDrop } from 'react-dnd';
 import { Box, Paper, Typography, IconButton } from '@mui/material';
 import WidgetRenderer from '../WidgetRenderer/WidgetRenderer';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const ItemTypes = { WIDGET: 'widget' };
 
 import './styles.css';
 
-const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
+const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => {
@@ -41,7 +42,15 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
           key={index}
         >
           <IconButton
-            className="non-draggable"
+            className="non-draggable settings-icon"
+            size="small"
+            onClick={() => onEdit(zoneId, index, widget)}
+          >
+            <SettingsIcon fontSize="small" />
+          </IconButton>
+
+          <IconButton
+            className="non-draggable delete-icon"
             size="small"
             onClick={() => onRemove(zoneId, index)}
           >

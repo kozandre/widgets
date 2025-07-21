@@ -24,7 +24,14 @@
 
 .non-draggable {
   position: absolute !important;
-  top: 5px;
-  right: 5px;
   z-index: 99;
+  top: 5px;
+}
+
+.settings-icon {
+  right: 45px;
+}
+
+.delete-icon {
+  right: 5px;
 }
