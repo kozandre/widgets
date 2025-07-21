@@ -29,11 +29,7 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove }) => {
         <Typography
           variant="h6"
           color="text.secondary"
-          sx={{
-            pointerEvents: 'none',
-            opacity: 0.6,
-            textAlign: 'center',
-          }}
+          className="dnd-area"
         >
           Перетаскивайте график сюда
         </Typography>

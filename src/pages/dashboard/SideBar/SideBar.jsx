@@ -3,7 +3,7 @@ import AvailableWidgetsList from '../AvailableWidgetsList/AvailableWidgetsList';
 
 function Sidebar({ availableWidgets }) {
   return (
-    <Box sx={{ width: 300 }}>
+    <Box>
       <AvailableWidgetsList widgets={availableWidgets} />
     </Box>
   );
