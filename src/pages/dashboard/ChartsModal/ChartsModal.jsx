@@ -9,7 +9,7 @@ const groupModes = ['grouped', 'stacked'];
 const layouts = ['vertical', 'horizontal'];
 const boldness = [400, 500, 600, 700, 800];
 
-function WidgetModal({open, onClose, onCreate, initialType}) {
+function ChartsModal({open, onClose, onCreate, initialType}) {
   const getInitialValues = (type) => {
     switch (type) {
       case 'BarChart':
@@ -601,4 +601,4 @@ function WidgetModal({open, onClose, onCreate, initialType}) {
   );
 }
 
-export default WidgetModal;
+export default ChartsModal;
