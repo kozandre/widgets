@@ -34,7 +34,6 @@ const WidgetModal = ({ open, onClose, onSubmit, initialValues }) => {
         initialValues={defaultValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          console.log('Submit values from WidgetModal:', values);
           onSubmit(values);
           actions.setSubmitting(false);
           onClose();

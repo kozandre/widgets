@@ -150,7 +150,7 @@ const Editor = () => {
     };
   };
 
-  const handleLayoutChange = (currentLayout, allLayouts) => {
+  const handleLayoutChange = (currentLayout) => {
     const updatedLayouts = {
       ...layouts,
       lg: currentLayout.map((item) => {
@@ -201,11 +201,10 @@ const Editor = () => {
 
   const handleEditWidgetContainer = (zoneId) => {
     const firstWidget = widgetsByZone[zoneId]?.[0];
-    if (!firstWidget) return;
 
     setTargetZoneId(zoneId);
     setEditingIndex(0);
-    setIsEditing(true);
+    setIsEditing(!!firstWidget);
     setIsWidgetModalOpen(true);
   };
 
@@ -265,9 +264,7 @@ const Editor = () => {
                   className="widget"
                 >
                   <Box
-                    sx={{
-                      height: '32px',
-                    }}
+                    className="widget-title"
                   >
                     {config.showWidgetTitle ? (
                       <Typography variant="h6">
@@ -295,9 +292,7 @@ const Editor = () => {
                   </IconButton>
                   </Box>
                   <Box
-                    sx={{
-                      height: '24px',
-                    }}
+                    className="chart-title"
                   >
                     {config.showChartTitle ? (
                       <Typography>

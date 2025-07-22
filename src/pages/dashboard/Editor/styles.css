@@ -47,3 +47,11 @@
   transform: scale(2) !important;
   border-color: #ff5722 !important;
 }
+
+.widget-title {
+  height: 32px;
+}
+
+.chart-title {
+  height: 24px;
+}
