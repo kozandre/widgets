@@ -345,6 +345,7 @@ const Editor = () => {
         onClose={() => setIsChartModalOpen(false)}
         onCreate={handleAddWidget}
         initialType={pendingChartType}
+        initialValues={editingConfig}
       />
 
       <WidgetModal

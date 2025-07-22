@@ -9,68 +9,68 @@ const groupModes = ['grouped', 'stacked'];
 const layouts = ['vertical', 'horizontal'];
 const boldness = [400, 500, 600, 700, 800];
 
-function ChartsModal({open, onClose, onCreate, initialType}) {
-  const getInitialValues = (type) => {
-    switch (type) {
-      case 'BarChart':
-        return {
-          title: '',
-          groupMode: 'grouped',
-          layout: 'vertical',
-          enableLabel: true,
-          enableTotals: false,
-          enableGridX: false,
-          enableGridY: true,
-          isInteractive: true,
-        };
-      case 'LineChart':
-        return {
-          title: '',
-          lineWidth: 2,
-          enableArea: false,
-          areaOpacity: 0.2,
-          enablePoints: true,
-          pointSize: 6,
-          enablePointLabel: false,
-          pointLabel: 'yFormatted',
-          pointLabelYOffset: -12,
-          enableGridX: true,
-          enableGridY: true,
-          isInteractive: true,
-          enableCrosshair: true,
-        };
-      case 'PieChart':
-        return {
-          title: '',
-          innerRadius: 0.5,
-          padAngle: 0,
-          sortByValue: false,
-          enableArcLabels: true,
-          enableArcLinkLabels: true,
-          isInteractive: true,
-          animate: true
-        };
-      case 'GaugeChart':
-        return {
-          title: '',
-          levels: 20,
-          percents: 0.86,
-          arcWidth: 0.3,
-          cornerRadius: 3,
-          animate: true
-        };
-      case 'TextChart':
-        return {
-          title: '',
-          text: '',
-          fontSize: 16,
-          fontWeight: 600,
-          color: '#ffffff'
-        };
-      default:
-        return {title: ''};
+function ChartsModal({open, onClose, onCreate, initialType, initialValues}) {
+  const getInitialValues = (type, overrides = {}) => {
+    const defaults = {
+      BarChart: {
+        title: '',
+        groupMode: 'grouped',
+        layout: 'vertical',
+        enableLabel: true,
+        enableTotals: false,
+        enableGridX: false,
+        enableGridY: true,
+        isInteractive: true,
+      },
+      LineChart: {
+        title: '',
+        lineWidth: 2,
+        enableArea: false,
+        areaOpacity: 0.2,
+        enablePoints: true,
+        pointSize: 6,
+        enablePointLabel: false,
+        pointLabel: 'yFormatted',
+        pointLabelYOffset: -12,
+        enableGridX: true,
+        enableGridY: true,
+        isInteractive: true,
+        enableCrosshair: true,
+      },
+      PieChart: {
+        title: '',
+        innerRadius: 0.5,
+        padAngle: 0,
+        sortByValue: false,
+        enableArcLabels: true,
+        enableArcLinkLabels: true,
+        isInteractive: true,
+        animate: true,
+      },
+      GaugeChart: {
+        title: '',
+        levels: 20,
+        percents: 0.86,
+        arcWidth: 0.3,
+        cornerRadius: 3,
+        animate: true,
+      },
+      TextChart: {
+        title: '',
+        text: '',
+        fontSize: 16,
+        fontWeight: 600,
+        color: '#ffffff',
+      },
     }
+
+    return {
+      ...defaults[type],
+      ...overrides.config,
+    };
   };
+
+  const mergedInitialValues = getInitialValues(initialType, initialValues);
 
   const getValidationSchema = (type) => {
     switch (type) {
@@ -148,7 +148,7 @@ function ChartsModal({open, onClose, onCreate, initialType}) {
   };
 
   const formik = useFormik({
-    initialValues: getInitialValues(initialType),
+    initialValues: mergedInitialValues,
     validationSchema: getValidationSchema(initialType),
     enableReinitialize: true,
     onSubmit: (values) => {
