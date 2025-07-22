@@ -8,6 +8,7 @@ import ChartsModal from 'src/pages/dashboard/ChartsModal/ChartsModal.jsx';
 import {useState} from 'react';
 
 import {Responsive, WidthProvider} from 'react-grid-layout';
+import WidgetModal from '../WidgetModal/WidgetModal';
 
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -22,7 +23,8 @@ const Editor = () => {
   const [widgetCount, setWidgetCount] = useState(0);
   const [widgetsByZone, setWidgetsByZone] = useState({});
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isChartModalOpen, setIsChartModalOpen] = useState(false);
+  const [isWidgetModalOpen, setIsWidgetModalOpen] = useState(false);
   const [pendingChartType, setPendingChartType] = useState(null);
   const [targetZoneId, setTargetZoneId] = useState(null);
 
@@ -33,30 +35,43 @@ const Editor = () => {
     setTargetZoneId(zoneId);
     setEditingIndex(index);
     setPendingChartType(widget.type);
-    setModalOpen(true);
+    setIsChartModalOpen(true);
     setIsEditing(true);
   };
 
   const handleDropInitiated = (type, zoneId) => {
     setPendingChartType(type);
     setTargetZoneId(zoneId);
-    setModalOpen(true);
+    setIsChartModalOpen(true);
   };
 
   const handleAddWidget = (config) => {
+    const widgetTitle = config?.widgetTitle || `Виджет ${targetZoneId}`;
+
     setWidgetsByZone(prev => {
       const updated = [...(prev[targetZoneId] || [])];
 
       if (isEditing && editingIndex !== null) {
-        updated[editingIndex] = {
-          type: pendingChartType,
-          config,
+        const oldWidget = updated[editingIndex];
+
+        const updatedWidget = {
+          ...oldWidget,
+          config: {
+            ...oldWidget.config,
+            ...config,
+          },
+          title: widgetTitle,
         };
+
+        updated[editingIndex] = updatedWidget;
       } else {
-        updated.push({
+        const newWidget = {
           type: pendingChartType,
           config,
-        });
+          title: widgetTitle,
+        };
+
+        updated.push(newWidget);
       }
 
       return {
@@ -65,7 +80,8 @@ const Editor = () => {
       };
     });
 
-    setModalOpen(false);
+    setIsChartModalOpen(false);
+    setIsWidgetModalOpen(false);
     setPendingChartType(null);
     setTargetZoneId(null);
     setEditingIndex(null);
@@ -183,6 +199,21 @@ const Editor = () => {
     });
   };
 
+  const handleEditWidgetContainer = (zoneId) => {
+    const firstWidget = widgetsByZone[zoneId]?.[0];
+    if (!firstWidget) return;
+
+    setTargetZoneId(zoneId);
+    setEditingIndex(0);
+    setIsEditing(true);
+    setIsWidgetModalOpen(true);
+  };
+
+  const editingConfig =
+    isEditing && targetZoneId !== null && editingIndex !== null
+      ? widgetsByZone[targetZoneId]?.[editingIndex]?.config
+      : undefined;
+
   return (
     <Box className="layout-wrapper">
       <Box
@@ -214,8 +245,18 @@ const Editor = () => {
           >
             {layouts.lg.map((layout) => {
               const widget = widgetsByZone[layout.i]?.[0];
-              const config = widget?.config?.config;
+              console.log(widget);
+
+              const rawConfig = widget?.config?.config;
+              const config = {
+                showWidgetTitle: true,
+                showChartTitle: true,
+                ...widget?.config,
+                ...rawConfig,
+              };
+
               const chartTitle = config?.title;
+              const widgetTitle = widget?.config?.widgetTitle;
 
               return (
                 <Paper
@@ -223,11 +264,24 @@ const Editor = () => {
                   elevation={3}
                   className="widget"
                 >
-                  <Typography variant="h6">{`Виджет ${layout.i}`}</Typography>
+                  <Box
+                    sx={{
+                      height: '32px',
+                    }}
+                  >
+                    {config.showWidgetTitle ? (
+                      <Typography variant="h6">
+                        {widgetTitle || `Виджет ${layout.i}`}
+                      </Typography>
+                    ) : (
+                      <Box />
+                    )}
+
                   <IconButton
                     size="small"
                     color="secondary"
                     className="non-draggable settings-icon"
+                    onClick={() => handleEditWidgetContainer(layout.i)}
                   >
                     <SettingsIcon fontSize="small" />
                   </IconButton>
@@ -239,9 +293,20 @@ const Editor = () => {
                   >
                     <DeleteIcon fontSize="small" />
                   </IconButton>
-                  <Typography>
-                    {chartTitle || 'Без названия'}
-                  </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      height: '24px',
+                    }}
+                  >
+                    {config.showChartTitle ? (
+                      <Typography>
+                        {chartTitle || 'Без названия'}
+                      </Typography>
+                    ) : (
+                      <Box />
+                    )}
+                  </Box>
                   <DropZone
                     zoneId={layout.i}
                     widgets={widgetsByZone[layout.i] || []}
@@ -261,10 +326,17 @@ const Editor = () => {
       />
 
       <ChartsModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
+        open={isChartModalOpen}
+        onClose={() => setIsChartModalOpen(false)}
         onCreate={handleAddWidget}
         initialType={pendingChartType}
+      />
+
+      <WidgetModal
+        open={isWidgetModalOpen}
+        onClose={() => setIsWidgetModalOpen(false)}
+        onSubmit={handleAddWidget}
+        initialValues={editingConfig}
       />
     </Box>
   )
