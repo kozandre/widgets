@@ -17,6 +17,8 @@ import './styles.css';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Editor = () => {
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
+
   const [availableWidgets, setAvailableWidgets] = useState([]);
   const [showGrid, setShowGrid] = useState(false);
   const [layouts, setLayouts] = useState({lg: []});
@@ -219,17 +221,27 @@ const Editor = () => {
         className="grid-layout-wrapper"
         sx={showGrid ? {display: 'block'} : undefined}
       >
-        <Button
-          className="button-add-widget"
-          variant="contained"
-          onClick={handleAddNewWidgetZone}
-        >
-          Добавить виджет
-        </Button>
+        <Box className="buttons-wrapper">
+          <Button
+            className="button-add-widget"
+            variant="contained"
+            onClick={handleAddNewWidgetZone}
+          >
+            Добавить виджет
+          </Button>
+
+          <Button
+            variant={isPreviewMode ? "outlined" : "contained"}
+            color="secondary"
+            onClick={() => setIsPreviewMode(prev => !prev)}
+          >
+            {isPreviewMode ? 'Выйти из предварительного просмотра' : 'Предварительный просмотр'}
+          </Button>
+        </Box>
 
         {showGrid && (
           <ResponsiveGridLayout
-            className="grid-layout"
+            className={`grid-layout ${isPreviewMode ? 'preview' : ''}`}
             layouts={layouts}
             onLayoutChange={handleLayoutChange}
             breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
@@ -260,8 +272,9 @@ const Editor = () => {
               return (
                 <Paper
                   key={layout.i}
-                  elevation={3}
-                  className="widget"
+                  elevation={isPreviewMode ? 0 : 3}
+                  className={`widget ${isPreviewMode ? 'preview' : ''}`}
+                  sx={isPreviewMode ? { border: 'none', boxShadow: 'none' } : {}}
                 >
                   <Box
                     className="widget-title"
@@ -274,22 +287,27 @@ const Editor = () => {
                       <Box />
                     )}
 
-                  <IconButton
-                    size="small"
-                    color="secondary"
-                    className="non-draggable settings-icon"
-                    onClick={() => handleEditWidgetContainer(layout.i)}
-                  >
-                    <SettingsIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    color="error"
-                    onClick={() => handleRemoveWidgetZone(layout.i)}
-                    className="non-draggable delete-icon"
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
+                    {!isPreviewMode && (
+                      <>
+                        <IconButton
+                          size="small"
+                          color="secondary"
+                          className="non-draggable settings-icon"
+                          onClick={() => handleEditWidgetContainer(layout.i)}
+                        >
+                          <SettingsIcon fontSize="small" />
+                        </IconButton>
+
+                        <IconButton
+                          size="small"
+                          color="error"
+                          onClick={() => handleRemoveWidgetZone(layout.i)}
+                          className="non-draggable delete-icon"
+                        >
+                          <DeleteIcon fontSize="small" />
+                        </IconButton>
+                      </>
+                    )}
                   </Box>
                   <Box
                     className="chart-title"
@@ -316,9 +334,11 @@ const Editor = () => {
         )}
       </Box>
 
-      <Sidebar
-        availableWidgets={availableWidgets}
-      />
+      {!isPreviewMode && (
+        <Sidebar
+          availableWidgets={availableWidgets}
+        />
+      )}
 
       <ChartsModal
         open={isChartModalOpen}

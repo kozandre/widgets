@@ -10,6 +10,10 @@
   min-height: 370px;
 }
 
+.grid-layout.preview {
+  border: none;
+}
+
 .grid-layout-wrapper {
   width: 100%;
   display: flex;
@@ -43,9 +47,18 @@
   transition: transform 0.2s ease, border-color 0.2s ease !important;
 }
 
+.grid-layout.preview .react-resizable-handle {
+  display: none;
+}
+
 .react-resizable-handle:hover::after {
   transform: scale(2) !important;
   border-color: #ff5722 !important;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 20px;
 }
 
 .widget-title {
@@ -54,4 +67,15 @@
 
 .chart-title {
   height: 24px;
+}
+
+.widget.preview {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.widget.preview .settings-icon,
+.widget.preview .delete-icon {
+  display: none;
 }
