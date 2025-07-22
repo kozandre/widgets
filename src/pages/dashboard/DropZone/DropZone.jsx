@@ -45,6 +45,7 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit }) => {
             className="non-draggable settings-icon"
             size="small"
             onClick={() => onEdit(zoneId, index, widget)}
+            color="primary"
           >
             <SettingsIcon fontSize="small" />
           </IconButton>
@@ -53,6 +54,7 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit }) => {
             className="non-draggable delete-icon"
             size="small"
             onClick={() => onRemove(zoneId, index)}
+            color="error"
           >
             <DeleteIcon fontSize="small" />
           </IconButton>

@@ -1,9 +1,14 @@
-import {Box, Typography, Paper, Button} from '@mui/material';
+import {Box, Typography, Paper, Button, IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 import DropZone from '../DropZone/DropZone';
 import Sidebar from '../SideBar/SideBar';
-import WidgetModal from '../WidgetModal/WidgetModal';
+import ChartsModal from 'src/pages/dashboard/ChartsModal/ChartsModal.jsx';
 import {useState} from 'react';
+
 import {Responsive, WidthProvider} from 'react-grid-layout';
+
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import './styles.css';
@@ -165,6 +170,19 @@ const Editor = () => {
     setShowGrid(true);
   };
 
+  const handleRemoveWidgetZone = (zoneId) => {
+    setLayouts(prev => ({
+      ...prev,
+      lg: prev.lg.filter(layout => layout.i !== zoneId),
+    }));
+
+    setWidgetsByZone(prev => {
+      const updated = {...prev};
+      delete updated[zoneId];
+      return updated;
+    });
+  };
+
   return (
     <Box className="layout-wrapper">
       <Box
@@ -191,24 +209,49 @@ const Editor = () => {
             isDraggable
             containerPadding={[10, 30]}
             draggableCancel=".non-draggable"
+            isBounded={true}
+            allowOverlap={true}
           >
-            {layouts.lg.map((layout) => (
-              <Paper
-                key={layout.i}
-                elevation={3}
-                className="widget"
-              >
-                <Typography variant="h6">Виджет {layout.i}</Typography>
-                <Typography>Название</Typography>
-                <DropZone
-                  zoneId={layout.i}
-                  widgets={widgetsByZone[layout.i] || []}
-                  onDrop={handleDrop}
-                  onRemove={handleRemove}
-                  onEdit={handleEditWidget}
-                />
-              </Paper>
-            ))}
+            {layouts.lg.map((layout) => {
+              const widget = widgetsByZone[layout.i]?.[0];
+              const config = widget?.config?.config;
+              const chartTitle = config?.title;
+
+              return (
+                <Paper
+                  key={layout.i}
+                  elevation={3}
+                  className="widget"
+                >
+                  <Typography variant="h6">{`Виджет ${layout.i}`}</Typography>
+                  <IconButton
+                    size="small"
+                    color="secondary"
+                    className="non-draggable settings-icon"
+                  >
+                    <SettingsIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    color="error"
+                    onClick={() => handleRemoveWidgetZone(layout.i)}
+                    className="non-draggable delete-icon"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                  <Typography>
+                    {chartTitle || 'Без названия'}
+                  </Typography>
+                  <DropZone
+                    zoneId={layout.i}
+                    widgets={widgetsByZone[layout.i] || []}
+                    onDrop={handleDrop}
+                    onRemove={handleRemove}
+                    onEdit={handleEditWidget}
+                  />
+                </Paper>
+              );
+            })}
           </ResponsiveGridLayout>
         )}
       </Box>
@@ -217,14 +260,15 @@ const Editor = () => {
         availableWidgets={availableWidgets}
       />
 
-      <WidgetModal
+      <ChartsModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         onCreate={handleAddWidget}
         initialType={pendingChartType}
       />
     </Box>
-  );
+  )
+    ;
 };
 
 export default Editor;
