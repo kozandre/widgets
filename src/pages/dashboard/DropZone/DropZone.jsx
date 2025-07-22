@@ -8,7 +8,7 @@ const ItemTypes = { WIDGET: 'widget' };
 
 import './styles.css';
 
-const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit }) => {
+const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit, previewMode }) => {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.WIDGET,
     drop: (item) => {
@@ -20,7 +20,7 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit }) => {
 
   return (
     <Box
-      className="dropzone-box"
+      className={`dropzone-box ${previewMode ? 'preview' : ''}`}
       ref={drop}
       sx={{
         border: isEmpty ? '2px dashed #ccc' : '2px solid #ccc',

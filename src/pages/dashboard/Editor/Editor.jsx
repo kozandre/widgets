@@ -251,7 +251,6 @@ const Editor = () => {
             isDraggable
             containerPadding={[10, 30]}
             draggableCancel=".non-draggable"
-            isBounded={true}
             allowOverlap={true}
           >
             {layouts.lg.map((layout) => {
@@ -326,6 +325,7 @@ const Editor = () => {
                     onDrop={handleDrop}
                     onRemove={handleRemove}
                     onEdit={handleEditWidget}
+                    previewMode={isPreviewMode}
                   />
                 </Paper>
               );

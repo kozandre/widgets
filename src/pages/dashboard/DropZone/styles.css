@@ -8,6 +8,10 @@
   overflow: hidden;
 }
 
+.dropzone-box.preview {
+  border: none;
+}
+
 .graphic-wrapper {
   position: relative;
   width: 100%;
