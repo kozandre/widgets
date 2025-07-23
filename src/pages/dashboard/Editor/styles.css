@@ -8,10 +8,12 @@
   border-radius: 20px;
   margin-block: 20px;
   min-height: 370px;
+  transition: margin-block .5s ease;
 }
 
 .grid-layout.preview {
   border: none;
+  margin-block: 0;
 }
 
 .grid-layout-wrapper {
@@ -23,6 +25,11 @@
 
 .widget {
   padding: 16px;
+  transition: padding .5s ease;
+}
+
+.widget.preview {
+  padding: 0;
 }
 
 .react-resizable-handle {

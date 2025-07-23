@@ -38,7 +38,7 @@ const DropZone = ({ zoneId, widgets, onDrop, onRemove, onEdit, previewMode }) =>
 
       {widgets.map((widget, index) => (
         <Paper
-          className="graphic-wrapper"
+          className={`graphic-wrapper ${previewMode ? 'preview' : ''}`}
           key={index}
         >
           <IconButton

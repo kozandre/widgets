@@ -20,6 +20,10 @@
   min-height: 320px;
 }
 
+.graphic-wrapper.preview {
+  background: transparent;
+}
+
 .dnd-area {
   pointer-events: none;
   opacity: 0.6;
