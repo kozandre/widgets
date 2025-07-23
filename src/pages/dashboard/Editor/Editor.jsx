@@ -247,8 +247,8 @@ const Editor = () => {
             breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480}}
             cols={{lg: 12, md: 10, sm: 6, xs: 4}}
             rowHeight={150}
-            isResizable
-            isDraggable
+            isDraggable={!isPreviewMode}
+            isResizable={!isPreviewMode}
             containerPadding={[10, 30]}
             draggableCancel=".non-draggable"
             allowOverlap={true}
